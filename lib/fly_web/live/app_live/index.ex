@@ -24,6 +24,10 @@ defmodule FlyWeb.AppLive.Index do
     end
   end
 
+  def handle_info({:status_updated, get}, socket) do 
+    {:noreply, update(socket, :apps, fn apps -> apps end)}
+  end 
+
   defp client_config(session) do
     Fly.Client.config(access_token: session["auth_token"] || System.get_env("FLYIO_ACCESS_TOKEN"))
   end

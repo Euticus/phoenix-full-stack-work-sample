@@ -231,6 +231,7 @@ defmodule Fly.Client do
     """
     |> perform_query(%{name: name}, config, :fetch_app)
     |> handle_response()
+    |> broadcast(:state_updated)
     |> case do
       {:ok, %{"app" => app}} ->
         Logger.info("app returned: #{inspect(app)}")
@@ -339,6 +340,13 @@ defmodule Fly.Client do
     url
     |> perform_http_get()
     |> handle_http_response()
+  end
+
+  defp broadcast({:error, _reason} = error, _event), do: error
+
+  defp broadcast({:ok, get}, event) do
+    Phoenix.PubSub.broadcast(Fly.PubSub, "stateUpdates", {event, get}) 
+    {:ok, get}
   end
 
   defp handle_http_response({:ok, %HTTPoison.Response{status_code: 200}}) do
