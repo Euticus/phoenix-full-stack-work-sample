@@ -1,6 +1,6 @@
 ### These are the notes of the developer Ryan Miller for the Fly.io coding sample:
 
-Changes are in:
+### Changes
 
 live/app_live/show.ex
 - added deployment_status field to the socket to be accessed in the view (see line 14)
@@ -15,6 +15,18 @@ lib/client/client.ex
 lib/fly_web/live/app_live/show.html.heex
 - added fields for instances. A very basic implementation (line 154-249)
 - added fields for deployment status info (see comment on line 52)
+
+### what I built
+- Made changes to graphQL requests to pull in more data
+- altered views to show the data
+- added broadcast features to the page
+
+### what I didn't build
+- Tests! I'd love to learn how to test LiveView properly 
+- Really solid UI. There is a CSS issue with the instance data rendering which I did not take the time to fix. It looks a little janky, but gets the job done showing I can get the data to the page
+
+### how I'd determine the feature is successful
+- tests! I can write rspec tests but it seemed it might take too long to learn an elixir testing framework. Happy to learn this weekend though!
 
 ### Other notes about the assessment 
 
@@ -88,4 +100,4 @@ Recent Logs
 
 
 ### other 
-I am really interested in working at Fly.io . I enjoyed my conversation with Michael and think I could be a great addition to the team. I enjoy learning lots of different technologies and thinking outside the box. I'd be really excited to work here and would work hard to become a senior engineer in no time :)
+I am really interested in working at Fly.io . I enjoyed my conversation with Michael and think I could be a great addition to the team. I enjoy learning lots of different technologies and thinking outside the box (my greatest strength is coming up with solid ideas on the spot). I'd be really excited to work here and would work hard to become a senior engineer in no time :)
