@@ -9,7 +9,7 @@ if config_env() == :prod do
       """
 
   app_name =
-    System.get_env("lateSun") ||
+    System.get_env("FLY_APP_NAME") ||
       raise "FLY_APP_NAME not available"
 
   config :fly, FlyWeb.Endpoint,

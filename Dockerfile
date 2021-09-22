@@ -71,5 +71,6 @@ ENV HOME=/app
 ENV MIX_ENV=prod
 ENV SECRET_KEY_BASE=nokey
 ENV PORT=4000
+EXPOSE 8080
 
 CMD ["bin/fly", "start"]

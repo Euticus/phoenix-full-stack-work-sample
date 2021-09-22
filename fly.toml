@@ -1,6 +1,6 @@
-# fly.toml file generated for late-sun-1326 on 2021-09-15T00:54:41-07:00
+# fly.toml file generated for crimson-wildflower-1711 on 2021-09-17T00:18:57-07:00
 
-app = "late-sun-1326"
+app = "crimson-wildflower-1711"
 
 kill_signal = "SIGTERM"
 kill_timeout = 5
@@ -8,6 +8,7 @@ processes = []
 
 [env]
   auto_rollback = false
+  PORT = 8080
 
 [experimental]
   allowed_public_ports = []
@@ -38,3 +39,7 @@ processes = []
     interval = "15s"
     restart_limit = 6
     timeout = "2s"
+    method = "get"
+    path = "/"
+    protocol = "tcp"
+    [services.tcp_checks.headers]

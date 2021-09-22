@@ -121,8 +121,10 @@ defmodule Fly.Client do
     """
     |> perform_query(%{id: id}, config, :get_template_deployment_status)
     |> handle_response()
+    |> broadcast(:state_updated)
     |> case do
       {:ok, %{"node" => %{"status" => status}}} ->
+      
         Logger.info("Deployment status returned: #{inspect(status)}")
         {:ok, status}
 
@@ -205,12 +207,6 @@ defmodule Fly.Client do
             status
             restarts
             createdAt
-          }
-          deploymentStatus{
-            description
-            id
-            status
-            version 
           }
           releases(last: 5) {
             totalCount

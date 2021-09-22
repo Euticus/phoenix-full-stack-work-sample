@@ -11,6 +11,8 @@ defmodule FlyWeb.AppLive.Show do
       assign(socket,
         config: client_config(session),
         state: :loading,
+        deployment_status: nil,
+        app_id: nil,
         app: nil,
         app_name: name,
         count: 0,
@@ -20,10 +22,13 @@ defmodule FlyWeb.AppLive.Show do
     # Only make the API call if the websocket is setup. Not on initial render.
     if connected?(socket) do
       {:ok, fetch_app(socket)}
+    #  {:ok, get_template_deployment_status(socket)}
+    #  line above commented to not give error. I'd call this at the top 
     else
       {:ok, socket}
     end
   end
+
 
   defp client_config(session) do
     Fly.Client.config(access_token: session["auth_token"] || System.get_env("FLYIO_ACCESS_TOKEN"))
@@ -35,6 +40,8 @@ defmodule FlyWeb.AppLive.Show do
     case Client.fetch_app(app_name, socket.assigns.config) do
       {:ok, app} ->
         assign(socket, :app, app)
+        # assign(socket, :app_id, app["id"]) 
+        # this is a guess to assign the id here. I can't seem to find the proper ID to access the deployment status
 
       {:error, :unauthorized} ->
         put_flash(socket, :error, "Not authenticated")
@@ -44,7 +51,28 @@ defmodule FlyWeb.AppLive.Show do
 
         put_flash(socket, :error, reason)
     end
+
   end
+
+  defp get_template_deployment_status(socket) do
+
+    app_id = socket.assigns.app_id
+
+    case Client.get_template_deployment_status(app_id, socket.assigns.config) do
+      {:ok, deployment_status} ->
+        assign(socket, :deployment_status, deployment_status)
+
+      {:error, :unauthorized} ->
+        put_flash(socket, :error, "Not authenticated")
+
+      {:error, reason} ->
+        Logger.error("Failed to load app '#{inspect(app_id)}'. Reason: #{inspect(reason)}")
+
+        put_flash(socket, :error, reason)
+    end
+
+  end
+
 
   @impl true
   def handle_event("click", _params, socket) do

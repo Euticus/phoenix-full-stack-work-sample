@@ -14,6 +14,7 @@
                     {"Apps", Routes.app_index_path(@socket, :index)},
                     {@app_name, ""}
                   ]} />
+                  
                 </div>
               </div>
             </div>
@@ -47,23 +48,26 @@
               </div>
             </div>
           </div>
-                   <div class="flex-1 min-w-0">
+
+          <%= if @deployment_status do %> <!-- Cannot get this to be properly assigned on mount, if it was this is how I'd show it on the page -->
+          <div class="flex-1 min-w-0">
             <h2 class="text-2xl font-bold leading-7 text-white-900 sm:text-3xl sm:truncate">
-              <%= @app_name %>
+              <p> Deployment Status: </p>
+              <%= @deployment_status["id"] %>
               <p class={"px-2 mx-4 inline-flex text-xs leading-5 font-semibold rounded-full #{status_bg_color(@app)} #{status_text_color(@app)}"}>
-                <%= @app["status"] %>
+                <%= @deployment_status["version"] %>
               </p>
             </h2>
             <div class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6">
               <div class="mt-2 flex items-center text-sm text-gray-500">
-                <%= @app["deploymentStatus"]["id"] %>
+                <%= @deployment_status["status"] %>
               </div>
               <div class="mt-2 flex items-center text-sm text-gray-500">
                 <div class="ml-2 flex-shrink-0 flex">
-                  <%=  @app["deploymentStatus"]["status"] %>
+                  <%=  @deployment_status["description"] %>
                 </div>
                 <div class="ml-2 flex-shrink-0 flex">
-                  <%=  @app["deploymentStatus"]["version"] %>
+                  <%=  @deployment_status["allocations"] %>
                 </div>
                    <div class="ml-2 flex-shrink-0 flex">
                   <%=  @app["deploymentStatus"]["description"] %>
@@ -71,6 +75,7 @@
               </div>
             </div>
           </div>
+          <% end %>
           <div class="mt-5 flex lg:mt-0 lg:ml-4">
             <%= if @app["deployed"] == true do %>
               <span class="hidden sm:block ml-3">
@@ -229,7 +234,6 @@
                                       <%= al["createdAt"] %>
                                     </td>
 
-                             
                                   </tr>
                                 <% end %>
                               </tbody>

@@ -95,3 +95,12 @@ Ready to run in production? Please [check our deployment guide](https://fly.io/d
 - Use `flyctl scale count`, `flyctl vm stop`, `flyctl vm restart`, and deploys to change your test app's VMs 
 - The app is built with [Tailwind CSS](https://tailwindcss.com). It's okay to refer to the docs or use whatever markup you found on StackOverflow to get the look you want without spending too much time
 - We have designers to make things look pretty, but it's up to you to make a great experience. 
+
+
+Issues: 
+
+1. UI not receiving proper variables from graphQL
+  -- I can't figure out how to put the @deployment_status variable in the show page properly
+  -- I'm not sure if my allocations are displaying properly
+2. Deployment is messed up
+
