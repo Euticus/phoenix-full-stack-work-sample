@@ -15,3 +15,4 @@ lib/client/client.ex
 lib/fly_web/live/app_live/shot.html.heex
 - added fields for instances. A very basic implementation (line 154-249)
 - added fields for deployment status info (see comment on line 52)
+
